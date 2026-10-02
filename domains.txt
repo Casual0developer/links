@@ -122,3 +122,4 @@ opencode.ai
 mimo.mi.com
 simpl.ai
 opengen.ai
+.ai
