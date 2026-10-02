@@ -104,3 +104,7 @@ www.debian.org
 www.linuxmint.com
 nixos.org
 ubuntu.com
+archlinux.org
+neon.kde.org
+rockylinux.org
+store.steampowered.com/steamos
