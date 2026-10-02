@@ -834,3 +834,6 @@ https://neon.kde.org/
 https://rockylinux.org/
 https://store.steampowered.com/steamos/
 https://distroscout.com/os/
+https://www.netflix.com/
+https://www.tiktok.com/
+https://www.twitch.tv/
