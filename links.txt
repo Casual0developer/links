@@ -862,3 +862,9 @@ https://schoolcdn.s3-fips.us-east-1.amazonaws.com/index.html
 https://cdn.staticdelivr.com/gh/taiigo/mizusvg/main/index.svg
 https://sixseven.dayspringeugene.com/
 https://edu.kchcs.org/
+https://www.malwarebytes.com/
+https://www.totalav.com/
+https://www.scanguard.com/
+https://www.avast.com/
+https://www.avg.com/
+https://www.bitdefender.com/
