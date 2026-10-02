@@ -829,3 +829,7 @@ https://www.debian.org/
 https://www.linuxmint.com/
 https://nixos.org/
 https://ubuntu.com/
+https://archlinux.org/
+https://neon.kde.org/
+https://rockylinux.org/
+https://store.steampowered.com/steamos/
