@@ -847,3 +847,6 @@ https://mimo.mi.com/
 https://www.perplexity.ai/
 https://simpl.ai/
 https://opengen.ai/
+https://www.decompiler.com/
+https://music.amazon.com/
+https://temp-mail.org/
