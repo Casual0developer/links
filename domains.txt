@@ -117,3 +117,4 @@ chatgpt.com
 gemini.google.com
 claude.ai
 ollama.com
+opencode.ai
