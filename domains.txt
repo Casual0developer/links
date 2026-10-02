@@ -121,3 +121,4 @@ ollama.com
 opencode.ai
 mimo.mi.com
 simpl.ai
+opengen.ai
