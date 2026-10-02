@@ -861,3 +861,4 @@ https://lunar.dugm.net/
 https://schoolcdn.s3-fips.us-east-1.amazonaws.com/index.html 
 https://cdn.staticdelivr.com/gh/taiigo/mizusvg/main/index.svg
 https://sixseven.dayspringeugene.com/
+https://edu.kchcs.org/
