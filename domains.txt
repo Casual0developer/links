@@ -114,3 +114,6 @@ www.twitch.tv
 www.tiktok.com
 discord.com
 chatgpt.com
+gemini.google.com
+claude.ai
+ollama.com
