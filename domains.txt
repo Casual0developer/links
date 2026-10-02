@@ -112,3 +112,4 @@ distroscout.com
 www.netflix.com
 www.twitch.tv
 www.tiktok.com
+discord.com
