@@ -98,4 +98,9 @@ jedimasters.net
 airlinemeals.net
 ctx.cl
 rwbcode.com
-https://github.com/
+github.com
+www.winux.is
+www.debian.org
+www.linuxmint.com
+nixos.org
+ubuntu.com
