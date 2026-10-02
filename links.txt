@@ -846,3 +846,4 @@ https://opencode.ai/
 https://mimo.mi.com/
 https://www.perplexity.ai/
 https://simpl.ai/
+https://opengen.ai/
