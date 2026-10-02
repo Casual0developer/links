@@ -842,3 +842,4 @@ https://chatgpt.com/
 https://gemini.google.com/
 https://claude.ai/
 https://ollama.com/
+https://opencode.ai/
