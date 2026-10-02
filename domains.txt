@@ -114,6 +114,7 @@ www.twitch.tv
 www.tiktok.com
 discord.com
 chatgpt.com
+www.perplexity.ai
 gemini.google.com
 claude.ai
 ollama.com
