@@ -824,3 +824,8 @@ https://muffinmuffinmuffinmuffinmuffinmuffinmuffinmuffinmuffinmuffin.b-cdn.net/
 https://drake.lonsdale-educational.co.uk
 https://advisory.anymor.org/
 https://advisory.bagatz.com/
+https://www.winux.is/
+https://www.debian.org/
+https://www.linuxmint.com/
+https://nixos.org/
+https://ubuntu.com/
