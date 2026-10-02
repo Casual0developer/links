@@ -120,3 +120,4 @@ claude.ai
 ollama.com
 opencode.ai
 mimo.mi.com
+simpl.ai
