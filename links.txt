@@ -843,3 +843,5 @@ https://gemini.google.com/
 https://claude.ai/
 https://ollama.com/
 https://opencode.ai/
+https://mimo.mi.com/
+https://www.perplexity.ai/
