@@ -248,3 +248,5 @@ photomath.com
 www.decompiler.com
 tubitv.com
 s.3
+obsidian.md
+obsproject.com
