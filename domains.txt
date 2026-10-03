@@ -158,7 +158,6 @@ bumble.com
 mimo.mi.com
 simpl.ai
 opengen.ai
-.ai
 twitch.tv
 netflix.com
 nflxvideo.net
