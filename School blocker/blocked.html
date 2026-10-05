@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Site Blocked — Nuvix</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='4.5' y='10' width='15' height='10.5' rx='2.5' fill='%233d6ea5'/%3E%3Cpath d='M8 10V7.5a4 4 0 0 1 8 0V10' stroke='%2316324f' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='15.2' r='1.9' fill='%23fff'/%3E%3C/svg%3E" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    user-select: none;
+    background: linear-gradient(180deg, #050a1a 0%, #0c1a3a 32%, #22365e 55%, #4b5480 74%, #7c6a94 88%, #a8819b 100%);
+    min-height: 100vh;
+  }
+
+  /* ---------- night scenery ---------- */
+  .scene { position: fixed; inset: 0; overflow: hidden; }
+  .moon {
+    position: absolute; top: 8%; right: 13%; width: 110px; height: 110px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #ffffff, #dbe4f5 55%, #aebbda 85%);
+    box-shadow: 0 0 40px 10px rgba(200, 210, 245, .5), 0 0 120px 50px rgba(160, 170, 230, .22);
+    animation: moonIn 1.2s ease-out both;
+  }
+  .moon::before {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 60%, rgba(150,160,200,.5) 0 8px, transparent 9px),
+      radial-gradient(circle at 65% 40%, rgba(150,160,200,.45) 0 6px, transparent 7px),
+      radial-gradient(circle at 55% 72%, rgba(150,160,200,.4) 0 10px, transparent 11px);
+  }
+  .moon::after {
+    content: ""; position: absolute; inset: -26px; border-radius: 50%;
+    border: 2px solid rgba(200, 215, 255, .28);
+  }
+  .star {
+    position: absolute; border-radius: 50%; background: #fff;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  .cloud { position: absolute; background: #2c3d5e; border-radius: 999px; opacity: .85; }
+  .cloud::before, .cloud::after { content: ""; position: absolute; background: #2c3d5e; border-radius: 50%; }
+  .c1 { top: 11%; left: -180px; width: 170px; height: 46px; animation: drift 38s linear infinite; }
+  .c1::before { width: 70px; height: 70px; top: -32px; left: 22px; }
+  .c1::after { width: 52px; height: 52px; top: -22px; left: 78px; }
+  .c2 { top: 23%; left: -260px; width: 220px; height: 56px; opacity: .65; animation: drift 55s linear infinite 6s; }
+  .c2::before { width: 90px; height: 90px; top: -42px; left: 30px; }
+  .c2::after { width: 64px; height: 64px; top: -28px; left: 104px; }
+  .c3 { top: 5%; left: -140px; width: 130px; height: 38px; opacity: .5; animation: drift 70s linear infinite 12s; }
+  .c3::before { width: 56px; height: 56px; top: -26px; left: 18px; }
+  .c3::after { width: 42px; height: 42px; top: -18px; left: 62px; }
+  .c4 { top: 32%; left: -200px; width: 150px; height: 42px; opacity: .45; animation: drift 64s linear infinite 20s; }
+  .c4::before { width: 62px; height: 62px; top: -28px; left: 24px; }
+  .c4::after { width: 46px; height: 46px; top: -20px; left: 74px; }
+
+  .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 72%; }
+  .mountains svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; }
+  .haze { animation: rise 1.2s ease-out both; opacity: .85; filter: blur(2px); }
+  .far  { animation: rise 1s ease-out both .1s; }
+  .mid  { animation: rise 1s ease-out both .25s; }
+  .near { animation: rise 1s ease-out both .4s; }
+  .mist {
+    position: absolute; bottom: 30%; left: -20%; width: 140%; height: 70px;
+    background: linear-gradient(90deg, transparent, rgba(200,210,240,.35) 20%, rgba(200,210,240,.35) 80%, transparent);
+    filter: blur(14px); animation: mistSlide 16s ease-in-out infinite alternate;
+  }
+  .mote {
+    position: absolute; bottom: -10px; border-radius: 50%;
+    background: radial-gradient(circle, #ffedb0, rgba(255,237,176,0));
+    animation: floatUp linear infinite;
+  }
+  .vignette {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 42%, transparent 50%, rgba(4, 8, 20, .4) 100%);
+  }
+
+  /* ---------- slide-down panel ---------- */
+  .shade { position: fixed; inset: 0; display: flex; justify-content: center; align-items: flex-start; padding-top: 7vh; }
+  .panel {
+    width: min(600px, calc(100vw - 48px));
+    background: rgba(255, 255, 255, .96);
+    border-radius: 22px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .55), 0 4px 18px rgba(0, 0, 0, .35);
+    border: 1px solid rgba(255, 255, 255, .9);
+    outline: 6px solid rgba(255, 255, 255, .22);
+    text-align: center;
+    padding: 40px 40px 32px;
+    color: #1e3a5f;
+    transform: translateY(-120%);
+    animation: slideDown 1s cubic-bezier(.2, 1.4, .35, 1) .15s forwards;
+  }
+  .cord { width: 6px; height: 7vh; min-height: 40px; margin: 0 auto; background: linear-gradient(#5a7194, #9fb4d4); border-radius: 0 0 4px 4px; }
+  .panel-wrap { transform: translateY(-120%); animation: slideDown 1s cubic-bezier(.2, 1.4, .35, 1) .15s forwards; display: flex; flex-direction: column; align-items: center; }
+
+  .badge {
+    width: 84px; height: 84px; margin: 0 auto; border-radius: 50%;
+    background: linear-gradient(145deg, #ff6b6b, #e63e3e);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 28px rgba(230, 62, 62, .4), inset 0 2px 6px rgba(255,255,255,.5);
+    animation: pop .6s cubic-bezier(.2, 1.6, .4, 1) .9s both;
+  }
+  .badge svg { width: 44px; height: 44px; }
+  h1 { font-size: 34px; margin: 16px 0 6px; letter-spacing: .2px; color: #16324f; animation: fadeUp .6s ease-out 1s both; }
+  .sub { color: #5b7a99; font-size: 15px; line-height: 1.55; animation: fadeUp .6s ease-out 1.1s both; }
+  .url-box {
+    flex: 1; background: #f1f7fd; border: 1px solid #cfe3f5;
+    border-radius: 12px; padding: 10px 14px; font-size: 13px; color: #d33;
+    word-break: break-all; max-width: 100%; text-align: left;
+    user-select: text; -webkit-user-select: text; cursor: text;
+    animation: fadeUp .6s ease-out 1.2s both;
+  }
+  .copy-row { display: flex; gap: 8px; align-items: stretch; margin-top: 18px; }
+  .copy-btn {
+    flex-shrink: 0; border: 1px solid #b9d4ea; background: #2f6cb8; color: #fff;
+    border-radius: 12px; padding: 0 18px; font-size: 13px; font-weight: 600; cursor: pointer;
+    animation: fadeUp .6s ease-out 1.25s both;
+  }
+  .copy-btn:hover { background: #255a9c; }
+  .copy-btn.copied { background: #2e9e5b; border-color: #2e9e5b; }
+  .meta { margin-top: 12px; font-size: 12px; color: #8aa2b8; animation: fadeUp .6s ease-out 1.3s both; }
+  .meta:empty { display: none; }
+
+  @keyframes slideDown { to { transform: translateY(0); } }
+  @keyframes rise { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes fadeUp { from { transform: translateY(14px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  @keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes moonIn { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes drift { to { transform: translateX(calc(100vw + 320px)); } }
+  @keyframes twinkle { 0%, 100% { opacity: .25; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.15); } }
+  @keyframes mistSlide { from { transform: translateX(-4%); } to { transform: translateX(4%); } }
+  @keyframes floatUp {
+    0% { transform: translate(0, 0); opacity: 0; }
+    12% { opacity: .9; }
+    100% { transform: translate(4vw, -72vh); opacity: 0; }
+  }
+
+  @media (max-height: 640px) { .shade { padding-top: 3vh; } .panel { padding: 28px 28px 24px; } h1 { font-size: 26px; } }
+  /* Deliberately NO "Go back" / "Proceed" button: there is nothing to click off. */
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="moon"></div>
+    <div class="star" style="top:6%; left:8%; width:3px; height:3px;"></div>
+    <div class="star" style="top:12%; left:18%; width:2px; height:2px; animation-delay:.8s;"></div>
+    <div class="star" style="top:4%; left:28%; width:3px; height:3px; animation-delay:1.6s;"></div>
+    <div class="star" style="top:15%; left:36%; width:2px; height:2px; animation-delay:.4s;"></div>
+    <div class="star" style="top:7%; left:45%; width:4px; height:4px; animation-delay:2.1s; box-shadow:0 0 8px 2px rgba(255,255,255,.5);"></div>
+    <div class="star" style="top:18%; left:52%; width:2px; height:2px; animation-delay:1.1s;"></div>
+    <div class="star" style="top:5%; left:60%; width:3px; height:3px; animation-delay:2.6s;"></div>
+    <div class="star" style="top:14%; left:68%; width:2px; height:2px; animation-delay:.2s;"></div>
+    <div class="star" style="top:3%; left:76%; width:3px; height:3px; animation-delay:1.9s;"></div>
+    <div class="star" style="top:20%; left:82%; width:2px; height:2px; animation-delay:1.3s;"></div>
+    <div class="star" style="top:9%; left:90%; width:4px; height:4px; animation-delay:.6s; box-shadow:0 0 8px 2px rgba(255,255,255,.5);"></div>
+    <div class="star" style="top:26%; left:6%; width:2px; height:2px; animation-delay:2.3s;"></div>
+    <div class="star" style="top:30%; left:24%; width:3px; height:3px; animation-delay:1s;"></div>
+    <div class="star" style="top:24%; left:42%; width:2px; height:2px; animation-delay:2.8s;"></div>
+    <div class="star" style="top:32%; left:58%; width:3px; height:3px; animation-delay:.5s;"></div>
+    <div class="star" style="top:28%; left:74%; width:2px; height:2px; animation-delay:1.5s;"></div>
+    <div class="star" style="top:36%; left:88%; width:3px; height:3px; animation-delay:2s;"></div>
+    <div class="star" style="top:38%; left:12%; width:2px; height:2px; animation-delay:.9s;"></div>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+    <div class="cloud c4"></div>
+    <div class="mountains">
+      <svg class="haze" viewBox="0 0 1440 420" preserveAspectRatio="none">
+        <path d="M0,420 L0,250 L90,190 L150,230 L230,150 L300,215 L380,130 L460,210 L540,160 L620,225 L700,140 L790,220 L870,165 L950,230 L1030,150 L1110,225 L1190,170 L1270,230 L1350,175 L1440,215 L1440,420 Z" fill="#46587e"/>
+        <path d="M380,130 L460,210 L380,210 Z" fill="#374a6b" opacity=".7"/>
+        <path d="M700,140 L790,220 L700,220 Z" fill="#374a6b" opacity=".6"/>
+        <path d="M1030,150 L1110,225 L1030,225 Z" fill="#374a6b" opacity=".6"/>
+      </svg>
+      <svg class="far" viewBox="0 0 1440 420" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="farG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#5a7194"/><stop offset="1" stop-color="#384d72"/>
+          </linearGradient>
+          <filter id="grainFar" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="4" stitchTiles="stitch" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.7 0.7 0.7 0 0"/>
+          </filter>
+          <clipPath id="clipFar"><use href="#farRidge"/></clipPath>
+        </defs>
+        <path id="farRidge" d="M0,420 L0,285 L70,240 L140,175 L205,235 L280,190 L340,150 L410,225 L470,185 L540,130 L610,215 L670,175 L760,160 L830,240 L900,190 L980,140 L1050,230 L1120,185 L1200,150 L1270,235 L1340,195 L1440,180 L1440,420 Z" fill="none"/>
+        <use href="#farRidge" fill="url(#farG)"/>
+        <path d="M340,150 L410,225 L340,225 Z" fill="#2b3c5c" opacity=".5"/>
+        <path d="M540,130 L610,215 L540,215 Z" fill="#2b3c5c" opacity=".55"/>
+        <path d="M980,140 L1050,230 L980,230 Z" fill="#2b3c5c" opacity=".5"/>
+        <path d="M1200,150 L1270,235 L1200,235 Z" fill="#2b3c5c" opacity=".45"/>
+        <path d="M470,185 L540,130 L505,200 Z" fill="#ffffff" opacity=".07"/>
+        <path d="M900,190 L980,140 L940,215 Z" fill="#ffffff" opacity=".07"/>
+        <path d="M104,202 L124,182 L140,175 L156,187 L171,210 L160,212 L150,200 L139,214 L127,203 Z" fill="#e9eef7" opacity=".92"/>
+        <path d="M306,184 L322,163 L340,150 L356,163 L371,186 L360,188 L350,176 L339,189 L329,178 Z" fill="#e9eef7" opacity=".92"/>
+        <path d="M506,164 L523,141 L540,130 L555,142 L569,165 L558,167 L549,155 L538,168 L528,156 Z" fill="#e9eef7" opacity=".92"/>
+        <path d="M948,172 L963,151 L980,140 L995,153 L1009,174 L998,176 L989,165 L978,178 L968,166 Z" fill="#e9eef7" opacity=".9"/>
+        <path d="M1170,182 L1185,162 L1200,150 L1214,163 L1227,184 L1216,186 L1207,175 L1196,187 L1186,176 Z" fill="#e9eef7" opacity=".88"/>
+        <g clip-path="url(#clipFar)"><rect x="0" y="0" width="1440" height="420" filter="url(#grainFar)" opacity=".12"/></g>
+        <use href="#farRidge" fill="none" stroke="#2c3a58" stroke-width="2" opacity=".5"/>
+        <path d="M555,150 L592,202 M995,160 L1032,212 M355,170 L390,218" stroke="#c3cfe8" stroke-width="2" opacity=".35" fill="none" stroke-linecap="round"/>
+      </svg>
+      <svg class="mid" viewBox="0 0 1440 420" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="midG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#33486e"/><stop offset="1" stop-color="#1b2b4b"/>
+          </linearGradient>
+          <filter id="grainMid" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="7" stitchTiles="stitch" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.7 0.7 0.7 0 0"/>
+          </filter>
+          <clipPath id="clipMid"><use href="#midRidge"/></clipPath>
+        </defs>
+        <path id="midRidge" d="M0,420 L0,340 L90,290 L170,220 L250,300 L330,240 L400,180 L470,260 L560,220 L640,170 L720,260 L800,225 L880,200 L960,290 L1040,240 L1120,180 L1200,270 L1280,230 L1360,210 L1440,260 L1440,420 Z" fill="none"/>
+        <use href="#midRidge" fill="url(#midG)"/>
+        <path d="M400,180 L470,260 L470,420 L400,420 Z" fill="#0d1830" opacity=".55"/>
+        <path d="M400,180 L330,240 L400,300 L400,180 Z" fill="#aebad6" opacity=".10"/>
+        <path d="M640,170 L720,260 L720,420 L640,420 Z" fill="#0d1830" opacity=".55"/>
+        <path d="M640,170 L560,220 L640,300 L640,170 Z" fill="#aebad6" opacity=".10"/>
+        <path d="M1120,180 L1200,270 L1200,420 L1120,420 Z" fill="#0d1830" opacity=".55"/>
+        <path d="M1120,180 L1040,240 L1120,300 L1120,180 Z" fill="#aebad6" opacity=".10"/>
+        <path d="M250,300 L330,240 L290,320 Z" fill="#0d1830" opacity=".4"/>
+        <path d="M800,225 L880,200 L840,265 Z" fill="#0d1830" opacity=".4"/>
+        <path d="M560,220 L640,170 L600,245 Z" fill="#0d1830" opacity=".3"/>
+        <path d="M360,228 L378,204 L400,180 L420,202 L440,228 L432,244 L420,228 L410,246 L398,230 L386,244 L372,232 Z" fill="#aebad6" opacity=".65"/>
+        <path d="M366,222 L384,200 L400,180 L418,201 L436,224 L426,226 L416,212 L404,228 L392,214 L382,226 Z" fill="#e9eef7" opacity=".92"/>
+        <path d="M598,220 L616,196 L640,170 L662,194 L684,222 L674,238 L662,222 L650,240 L638,224 L626,238 L610,226 Z" fill="#aebad6" opacity=".65"/>
+        <path d="M604,214 L622,191 L640,170 L660,192 L679,218 L669,220 L658,206 L646,224 L634,208 L622,222 Z" fill="#e9eef7" opacity=".92"/>
+        <path d="M1080,226 L1098,201 L1120,180 L1140,202 L1159,227 L1150,243 L1139,227 L1128,245 L1116,229 L1105,243 L1091,231 Z" fill="#aebad6" opacity=".65"/>
+        <path d="M1086,220 L1103,198 L1120,180 L1138,199 L1155,223 L1145,225 L1135,213 L1123,229 L1112,215 L1101,227 Z" fill="#e9eef7" opacity=".92"/>
+        <path d="M846,234 L860,218 L880,200 L898,219 L912,237 L901,239 L890,226 L880,240 L870,228 Z" fill="#e9eef7" opacity=".88"/>
+        <g clip-path="url(#clipMid)"><rect x="0" y="0" width="1440" height="420" filter="url(#grainMid)" opacity=".14"/></g>
+        <use href="#midRidge" fill="none" stroke="#16263f" stroke-width="2.5" opacity=".55"/>
+        <path d="M655,190 L702,252 M1135,200 L1182,262 M415,200 L455,252" stroke="#c3cfe8" stroke-width="2.5" opacity=".4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <svg class="near" viewBox="0 0 1440 420" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="nearG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1d2f4f"/><stop offset="1" stop-color="#0b1626"/>
+          </linearGradient>
+          <filter id="grainNear" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="11" stitchTiles="stitch" result="n"/>
+            <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.7 0.7 0.7 0 0"/>
+          </filter>
+          <clipPath id="clipNear"><use href="#nearRidge"/></clipPath>
+        </defs>
+        <path id="nearRidge" d="M0,420 L0,375 L120,315 L200,260 L290,330 L380,290 L520,230 L610,320 L700,280 L820,240 L910,330 L1000,290 L1130,250 L1220,340 L1330,300 L1440,270 L1440,420 Z" fill="none"/>
+        <use href="#nearRidge" fill="url(#nearG)"/>
+        <path d="M520,230 L610,320 L610,420 L520,420 Z" fill="#050b16" opacity=".6"/>
+        <path d="M520,230 L380,290 L380,420 L520,420 Z" fill="#aebad6" opacity=".07"/>
+        <path d="M820,240 L910,330 L910,420 L820,420 Z" fill="#050b16" opacity=".6"/>
+        <path d="M820,240 L700,280 L700,420 L820,420 Z" fill="#aebad6" opacity=".07"/>
+        <path d="M1130,250 L1220,340 L1220,420 L1130,420 Z" fill="#050b16" opacity=".55"/>
+        <path d="M1130,250 L1000,290 L1000,420 L1130,420 Z" fill="#aebad6" opacity=".07"/>
+        <path d="M200,260 L290,330 L240,355 Z" fill="#050b16" opacity=".45"/>
+        <path d="M200,260 L120,315 L200,350 L200,260 Z" fill="#aebad6" opacity=".06"/>
+        <path d="M700,280 L820,240 L760,335 Z" fill="#050b16" opacity=".4"/>
+        <path d="M1000,290 L1130,250 L1070,345 Z" fill="#050b16" opacity=".4"/>
+        <path d="M380,290 L520,230 L450,340 Z" fill="#050b16" opacity=".3"/>
+        <path d="M474,280 L494,254 L520,230 L544,255 L566,282 L556,298 L544,282 L532,300 L519,283 L505,299 L490,286 Z" fill="#aebad6" opacity=".7"/>
+        <path d="M482,272 L500,250 L520,230 L541,252 L560,275 L550,277 L540,263 L528,280 L516,264 L504,280 Z" fill="#eef2fa" opacity=".94"/>
+        <path d="M778,286 L796,262 L820,240 L841,263 L861,287 L851,303 L839,287 L827,305 L815,289 L801,303 L788,290 Z" fill="#aebad6" opacity=".7"/>
+        <path d="M786,278 L802,258 L820,240 L838,260 L855,281 L845,283 L835,269 L823,286 L812,270 Z" fill="#eef2fa" opacity=".9"/>
+        <path d="M1092,292 L1109,269 L1130,250 L1150,271 L1165,293 L1155,309 L1144,293 L1133,311 L1121,295 L1109,309 L1099,296 Z" fill="#aebad6" opacity=".7"/>
+        <path d="M1100,284 L1115,265 L1130,250 L1145,267 L1159,287 L1149,289 L1139,275 L1128,290 L1118,276 Z" fill="#eef2fa" opacity=".88"/>
+        <g clip-path="url(#clipNear)"><rect x="0" y="0" width="1440" height="420" filter="url(#grainNear)" opacity=".16"/></g>
+        <use href="#nearRidge" fill="none" stroke="#0a1526" stroke-width="3" opacity=".6"/>
+        <path d="M545,255 L592,312 M845,265 L892,318 M1155,275 L1202,328 M225,285 L265,330" stroke="#c3cfe8" stroke-width="3" opacity=".5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="mist"></div>
+    <div class="mote" style="left:22%; width:9px; height:9px; animation-duration:11s;"></div>
+    <div class="mote" style="left:38%; width:6px; height:6px; animation-duration:14s; animation-delay:3s;"></div>
+    <div class="mote" style="left:55%; width:8px; height:8px; animation-duration:12s; animation-delay:6s;"></div>
+    <div class="mote" style="left:70%; width:5px; height:5px; animation-duration:15s; animation-delay:2s;"></div>
+    <div class="mote" style="left:84%; width:7px; height:7px; animation-duration:13s; animation-delay:8s;"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <div class="shade">
+    <div class="panel-wrap">
+      <div class="cord"></div>
+      <div class="panel">
+        <div class="badge">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l8 3v6c0 5-3.5 9.3-8 11-4.5-1.7-8-6-8-11V5l8-3z" fill="#fff" opacity=".95"/>
+            <path d="M8.5 8.5l7 7m0-7l-7 7" stroke="#e63e3e" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h1>This site is blocked</h1>
+        <p class="sub">This page was blocked by Nuvix policy.<br />Contact your administrator if you think this is a mistake.</p>
+        <div class="copy-row" id="copy-row">
+          <div class="url-box" id="blocked-url">…</div>
+          <button class="copy-btn" id="copy-btn" type="button">Copy link</button>
+        </div>
+        <div class="meta" id="blocked-meta"></div>
+      </div>
+    </div>
+  </div>
+  <script src="blocked.js"></script>
+</body>
+</html>

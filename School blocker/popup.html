@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>
+  body { width: 280px; font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; padding: 16px; margin: 0; }
+  h2 { font-size: 16px; margin: 0 0 8px; }
+  .row { font-size: 13px; color: #94a3b8; margin: 4px 0; }
+  .row b { color: #f1f5f9; }
+  button { width: 100%; margin-top: 12px; padding: 8px; border: none; border-radius: 8px;
+    background: #3b82f6; color: white; font-size: 13px; cursor: pointer; }
+  button:hover { background: #2563eb; }
+</style>
+</head>
+<body>
+  <h2>🔒 Nuvix</h2>
+  <div class="row">Blocked keywords: <b id="count">…</b></div>
+  <div class="row">List source: <b id="source">…</b></div>
+  <div class="row">Last updated: <b id="updated">…</b></div>
+  <div class="row">DNS cached hosts: <b id="dns">…</b></div>
+  <div class="row">Smart-blocked sites: <b id="smart">…</b></div>
+  <div class="row">Network rules: <b id="net">…</b></div>
+  <button id="refresh">Refresh block list now</button>
+  <button id="clear-smart" style="background:#475569;">Clear smart list</button>
+  <script src="popup.js"></script>
+</body>
+</html>

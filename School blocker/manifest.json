@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Nuvix",
+  "version": "1.9.19",
+  "description": "GoGuardian / FrontiGuard style blocker. Blocks sites by keyword from remote domains.txt with offline local fallback. Refresh-proof block page.",
+  "permissions": ["webNavigation", "tabs", "storage", "alarms", "clipboardWrite", "declarativeNetRequest"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Nuvix"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked.html", "blocked.js", "domains.txt", "links.txt"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
