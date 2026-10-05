@@ -251,3 +251,4 @@ obsidian.md
 obsproject.com
 soundboard
 e54ad8ac.edu-4gv.pages.dev/Linklet
+8185d0da.edu-4gv.pages.dev/Linklet
